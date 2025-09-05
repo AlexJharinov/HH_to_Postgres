@@ -3,13 +3,15 @@ name = "hh-to-postgres"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "aleksejzarinov",email = "neftkom.otk@gmail.com"}
+    { name = "aleksejzarinov", email = "neftkom.otk@gmail.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "requests",
+    "python-dotenv",
+    "psycopg2-binary"
 ]
-
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
