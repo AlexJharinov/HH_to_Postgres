@@ -5,6 +5,16 @@ import requests
 from src.db.db import DatabaseVacancyStorage
 from src.vacancy import Vacancy
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+
+
 # --- Константы ---
 COMPANIES = [
     "Альфа-Банк",
@@ -27,7 +37,7 @@ JSON_FILE = "company_ids.json"
 
 # --- Базовые функции работы с БД ---
 def get_db():
-    return DatabaseVacancyStorage("hh_vacancies", "postgres", "1", "127.0.0.1")
+    return DatabaseVacancyStorage(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST)
 
 
 # --- HH API методы ---
@@ -220,16 +230,23 @@ def _display_menu():
     print("3. Показать среднюю зарплату по всем вакансиям")
     print("4. Показать вакансии с зарплатой выше средней")
     print("5. Найти вакансии по ключевому слову")
-    print("6. Получить ID работодателей и сохранить в JSON")
-    print("7. Загрузить работодателей в БД")
-    print("8. Загрузить вакансии для выбранных компаний (или всех)")
-    print("9. Выход")
+    # print("6. Получить ID работодателей и сохранить в JSON")
+    # print("7. Загрузить работодателей в БД")
+    # print("8. Загрузить вакансии для выбранных компаний (или всех)")
+    print("6. Выход")
 
 
 def main():
+    get_company_ids()
+    save_employers_to_db()
+    save_employers_to_db()
+    save_vacancies_by_multiple_companies
+
     while True:
         _display_menu()
-        choice = input("Выберите действие (1-9): ")
+        choice = input("Выберите действие (1-6): ")
+
+
 
         if choice == "1":
             show_companies_and_counts()
@@ -241,13 +258,13 @@ def main():
             show_vacancies_above_avg()
         elif choice == "5":
             show_vacancies_by_keyword()
+        # elif choice == "6":
+        #     get_company_ids()
+        # elif choice == "7":
+        #     save_employers_to_db()
+        # elif choice == "8":
+        #     save_vacancies_by_multiple_companies()
         elif choice == "6":
-            get_company_ids()
-        elif choice == "7":
-            save_employers_to_db()
-        elif choice == "8":
-            save_vacancies_by_multiple_companies()
-        elif choice == "9":
             print("Выход...")
             break
         else:
